@@ -16,9 +16,10 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const user = require("./models/user");
-
+const dbUrl =
+  "mongodb+srv://admin-ambuj:t123@cluster0.tjgxm8p.mongodb.net/?retryWrites=true&w=majority";
 mongoose
-  .connect("mongodb://127.0.0.1:27017/yelp-camp", {
+  .connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
