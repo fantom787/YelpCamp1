@@ -13,13 +13,18 @@ router.get("/new", isLoggedin, campgrounds.renderNewForm);
 
 router.post(
   "/",
+  (req, res, next) => {
+    console.log("campgroud/post");
+    next();
+  },
   isLoggedin,
   upload.array("image"),
+  (req, res, next) => {
+    console.log("after upload");
+    next();
+  },
   validateCampground,
-  catchAsync(campgrounds.createCampground),
-  (req, res) => {
-    console.log("campgroud/post");
-  }
+  catchAsync(campgrounds.createCampground)
 );
 
 // router.post("/",upload.array("image"), (req, res) => {
