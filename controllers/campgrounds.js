@@ -12,6 +12,7 @@ module.exports.createCampground = async (req, res, next) => {
     url: f.path,
     filename: f.filename,
   }));
+  console.log("here in createCampground");
   const campground = new Campground(req.body.campground);
   campground.author = req.user._id;
   campground.images = imageData;

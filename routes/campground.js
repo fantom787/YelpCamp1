@@ -16,7 +16,10 @@ router.post(
   isLoggedin,
   upload.array("image"),
   validateCampground,
-  catchAsync(campgrounds.createCampground)
+  catchAsync(campgrounds.createCampground),
+  (req, res) => {
+    console.log("campgroud/post");
+  }
 );
 
 // router.post("/",upload.array("image"), (req, res) => {
