@@ -16,13 +16,11 @@ module.exports.createCampground = async (req, res, next) => {
   campground.author = req.user._id;
   campground.images = imageData;
   await campground.save();
-  console.log(campground);
   req.flash("success", "Successfully made a new campground! ");
   res.redirect(`/campground/${campground._id}`);
 };
 
 module.exports.showCampground = async (req, res) => {
-  console.log("hi", req.params.id);
   const campground = await Campground.findById(req.params.id)
     .populate({
       path: "reviews",
@@ -31,7 +29,6 @@ module.exports.showCampground = async (req, res) => {
       },
     })
     .populate("author");
-  console.log("campground result: ", campground);
   if (!campground) {
     req.flash("error", "Cannot find that campground!");
     return res.redirect("/campground");
@@ -52,7 +49,6 @@ module.exports.renderEditForm = async (req, res) => {
 };
 
 module.exports.updateCampground = async (req, res) => {
-  console.log(req.body);
   const imageData = req.files.map((f) => ({
     url: f.path,
     filename: f.filename,
@@ -70,7 +66,6 @@ module.exports.updateCampground = async (req, res) => {
     await camp.updateOne({
       $pull: { images: { filename: { $in: req.body.deleteImages } } },
     });
-    console.log("444444444", camp);
   }
   req.flash("success", "Successfully made a new campground! ");
   res.redirect(`/campground/${camp._id}`);
